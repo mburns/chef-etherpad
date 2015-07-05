@@ -80,7 +80,7 @@ Vagrant.configure("2") do |config|
     }
 
     chef.run_list = [
-        "recipe[etherpad::default]"
+      "recipe[etherpad::default]"
     ]
   end
 end
