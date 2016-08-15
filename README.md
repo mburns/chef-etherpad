@@ -1,19 +1,16 @@
-[![Build Status](https://travis-ci.org/computerlyrik/chef-etherpad.png?branch=master)](https://tr
-avis-ci.org/computerlyrik/chef-etherpad)
+[![Build Status](https://travis-ci.org/mburns/chef-etherpad.svg?branch=cleanup)](https://travis-ci.org/mburns/chef-etherpad)
 
 etherpad Cookbook
 ======================
 
-Code repo: https://github.com/computerlyrik/chef-etherpad
+This cookbook installs etherpad-lite, a collaborative writing web application written in Node.js.
+
+Code repo: https://github.com/mburns/chef-etherpad
 
 #### etherpad::default
-installs ol' fat etherpad
-
-#### etherpad::lite
 installs newer etherpad-lite
 
 TODO:
-* implement etherpad::default
 * fix fedora, centos
 * attributize and template settings.json
 
@@ -24,9 +21,6 @@ Requirements
 
 Attributes
 ----------
-TODO: Add attributes
-
-e.g.
 #### etherpad::default
 <table>
   <tr>
@@ -36,26 +30,48 @@ e.g.
     <th>Default</th>
   </tr>
   <tr>
-    <td><tt>['etherpad-lite']['bacon']</tt></td>
-    <td>Boolean</td>
-    <td>whether to include bacon</td>
-    <td><tt>true</tt></td>
+    <td><tt>['etherpad']['packages']</tt></td>
+    <td>Array</td>
+    <td>list of dependency packages to be installed</td>
+    <td><tt>*computed*</tt></td>
+  </tr>
+  <tr>
+    <td><tt>['etherpad']['version']</tt></td>
+    <td>String</td>
+    <td>Version of Etherpad-lite to install</td>
+    <td><tt>'1.5.6'</tt></td>
+  </tr>
+  <tr>
+    <td><tt>['etherpad']['user']</tt></td>
+    <td>String</td>
+    <td>User to own the program and data files</td>
+    <td><tt>'etherpad-user'</tt></td>
+  </tr>
+  <tr>
+    <td><tt>['etherpad']['user_home']</tt></td>
+    <td>String</td>
+    <td>User's $HOMEDIR'</td>
+    <td><tt>'/etherpad'</tt></td>
+  </tr>
+  <tr>
+    <td><tt>['etherpad']['port']</tt></td>
+    <td>Integer</td>
+    <td>Port Number to bind server to</td>
+    <td><tt>9001</tt></td>
   </tr>
 </table>
 
 Usage
 -----
-#### etherpad::lite
-TODO: Write usage instructions for each cookbook.
+#### etherpad::default
 
-e.g.
-Just include `etherpad-lite` in your node's `run_list`:
+Just include `etherpad::default` in your node's `run_list`:
 
 ```json
 {
   "name":"my_node",
   "run_list": [
-    "recipe[etherpad-lite]"
+    "recipe[etherpad]"
   ]
 }
 ```
@@ -74,4 +90,7 @@ e.g.
 
 License and Authors
 -------------------
-Authors: TODO: List authors
+Authors: 
+
+* Computerlyrik (<chef-cookbooks@computerlyrik.de>)
+* Michael Burns (<michael@mirwin.net>)

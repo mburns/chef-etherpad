@@ -16,3 +16,32 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 #
+
+node['etherpad']['packages'].each do |p|
+  package p
+end
+
+include_recipe 'nodejs'
+
+user node['etherpad']['user'] do
+  home node['etherpad']['user_home']
+  supports(manage_home: true)
+  system true
+end
+
+ark 'etherpad-lite' do
+  url "https://github.com/ether/etherpad-lite/archive/#{node['etherpad']['version']}.tar.gz"
+  path "#{node['etherpad']['user_home']}/etherpad-lite"
+  owner node['etherpad']['user']
+  action :put
+end
+
+template "#{node['etherpad']['user_home']}/etherpad-lite/settings.json" do
+  owner node['etherpad']['user']
+end
+
+service 'etherpad-lite' do
+  start_command "#{node['etherpad']['user_home']}/etherpad-lite/bin/run.sh"
+  action :start
+  subscribes :restart, "#{node['etherpad']['user_home']}/etherpad-lite"
+end
