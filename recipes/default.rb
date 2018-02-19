@@ -25,7 +25,7 @@ include_recipe 'nodejs'
 
 user node['etherpad']['user'] do
   home node['etherpad']['user_home']
-  supports(manage_home: true)
+  manage_home true
   system true
 end
 
